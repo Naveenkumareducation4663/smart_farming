@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Smart Farming</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-green-50 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md border-t-8 border-green-600">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-green-800">🌱 Create Account</h1>
+            <p class="text-gray-500">Join the Smart Farming community</p>
+        </div>
+
+        {% if error %}
+        <p class="bg-red-100 text-red-600 p-3 rounded-lg mb-4 text-center text-sm font-bold">{{ error }}</p>
+        {% endif %}
+
+        <form action="/register" method="POST">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Choose Username</label>
+                <input type="text" name="username" class="w-full p-3 border rounded-xl outline-none focus:ring-2 focus:ring-green-500" placeholder="e.g. FarmerJohn" required>
+            </div>
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Create Password</label>
+                <input type="password" name="password" class="w-full p-3 border rounded-xl outline-none focus:ring-2 focus:ring-green-500" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="w-full bg-green-600 text-white p-3 rounded-xl font-bold hover:bg-green-700 transition shadow-lg">
+                Register Now
+            </button>
+        </form>
+        
+        <div class="text-center mt-6">
+            <p class="text-sm text-gray-600">Already have an account? <a href="/login" class="text-green-600 font-bold hover:underline">Login here</a></p>
+        </div>
+    </div>
+</body>
+</html>

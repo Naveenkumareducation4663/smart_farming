@@ -91,17 +91,20 @@ def register():
         return redirect(url_for('login'))
     
     return render_template('register.html')
-
-# --- Update your init_db() slightly to ensure usernames are unique ---
 def init_db():
-    conn = get_db_connection()
+    conn = sqlite3.connect('farming.db')
     c = conn.cursor()
-    # Added UNIQUE to username
+    # This creates the table ONLY if it's missing
     c.execute('''CREATE TABLE IF NOT EXISTS users 
                  (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT UNIQUE, password TEXT)''')
-    # ... rest of your init_db code stays the same ...
+    # Add a default admin so you can always log in
+    try:
+        c.execute("INSERT INTO users (username, password) VALUES (?, ?)", ('admin', '1234'))
+    except sqlite3.IntegrityError:
+        pass # Admin already exists
     conn.commit()
     conn.close()
+# --- Update your init_db() slightly to ensure usernames are unique ---
 
 # --- Keep existing /api/chemicals, /upload, and /chat routes here ---
 
